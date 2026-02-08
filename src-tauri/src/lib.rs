@@ -1,5 +1,5 @@
 use std::sync::{Arc, Mutex};
-use tauri::{AppHandle, Emitter, Manager};
+use tauri::{AppHandle, Emitter};
 use tauri_plugin_global_shortcut::{GlobalShortcutExt, Shortcut};
 
 #[derive(Clone, serde::Serialize)]
@@ -141,15 +141,15 @@ fn save_audio_to_wav(buffer: &[f32], path: &std::path::Path) -> Result<(), Box<d
 
 // Type text using enigo
 fn type_text(text: &str) -> Result<(), String> {
-    use enigo::{Enigo, Key, KeyboardControllable};
+    use enigo::{Enigo, Settings, Keyboard};
     
-    let mut enigo = Enigo::new();
+    let mut enigo = Enigo::new(&Settings::default()).map_err(|e| e.to_string())?;
     
     // Small delay to ensure target app is focused
     std::thread::sleep(std::time::Duration::from_millis(100));
     
     // Type the text
-    enigo.key_sequence(text);
+    enigo.text(text).map_err(|e| e.to_string())?;
     
     Ok(())
 }
