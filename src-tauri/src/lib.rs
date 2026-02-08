@@ -168,13 +168,13 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![start_recording, stop_recording])
         .setup(|app| {
             // Register global shortcut Alt+Space
-            let handle = app.handle();
+            let handle = app.handle().clone();
             let shortcut = Shortcut::new(Some(tauri_plugin_global_shortcut::Modifiers::ALT), tauri_plugin_global_shortcut::Code::Space);
             
             app.global_shortcut().on_shortcut(shortcut, move |_app, _shortcut, _event| {
                 // Toggle recording
                 // This will be handled by the frontend
-                handle.emit("hotkey-pressed", ()).unwrap();
+                let _ = handle.emit("hotkey-pressed", ());
             })?;
             
             app.global_shortcut().register(shortcut)?;
