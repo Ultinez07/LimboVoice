@@ -206,7 +206,10 @@ async fn transcribe_with_whisper(audio_path: &std::path::Path) -> Result<String,
         .join("ggml-small.en.bin");
     
     if !model_path.exists() {
-        return Err("Whisper model file not found. Please reinstall Limbo Voice.".to_string());
+        return Err(format!(
+            "Whisper model not found at: {}\n\nThis build is missing the AI model. Please download Build #14 or later from GitHub Releases.",
+            model_path.display()
+        ));
     }
     
     // Load Whisper model
