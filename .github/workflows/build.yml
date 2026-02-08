@@ -1,0 +1,54 @@
+name: Build Limbo Voice
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    
+    - name: Setup Rust
+      uses: dtolnay/rust-toolchain@stable
+    
+    - name: Install dependencies
+      run: npm install
+    
+    - name: Download Whisper Small model
+      run: |
+        New-Item -ItemType Directory -Path "src-tauri\resources" -Force
+        Invoke-WebRequest -Uri "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.en.bin" -OutFile "src-tauri\resources\ggml-small.en.bin"
+        Write-Host "Model downloaded successfully!"
+        Get-Item "src-tauri\resources\ggml-small.en.bin" | Select-Object Name, Length
+      
+    - name: Build Tauri App
+      run: npm run tauri build
+      
+    - name: Upload Installer
+      uses: actions/upload-artifact@v4
+      with:
+        name: limbo-voice-installer
+        path: src-tauri/target/release/bundle/nsis/*.exe
+        
+    - name: Create Release
+      if: github.ref == 'refs/heads/main'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v2.0-build-${{ github.run_number }}
+        name: Limbo Voice v2.0 (Build ${{ github.run_number }})
+        files: src-tauri/target/release/bundle/nsis/*.exe
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
