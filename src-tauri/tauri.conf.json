@@ -47,6 +47,9 @@
     "category": "Productivity",
     "shortDescription": "Universal voice dictation for Windows",
     "longDescription": "Limbo Voice is a free, privacy-first voice dictation tool that works across every Windows application. Press Alt+Space anywhere to start dictating.",
+    "resources": [
+      "resources/*"
+    ],
     "windows": {
       "certificateThumbprint": null,
       "digestAlgorithm": "sha256",
