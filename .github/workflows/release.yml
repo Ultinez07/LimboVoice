@@ -35,6 +35,13 @@ jobs:
       - name: install frontend dependencies
         run: npm install
 
+      - name: Download Whisper Small model
+        run: |
+          New-Item -ItemType Directory -Path "src-tauri\resources" -Force
+          Invoke-WebRequest -Uri "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.en.bin" -OutFile "src-tauri\resources\ggml-small.en.bin"
+          Write-Host "Model downloaded successfully!"
+          Get-Item "src-tauri\resources\ggml-small.en.bin" | Select-Object Name, Length
+
       - uses: tauri-apps/tauri-action@v0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
