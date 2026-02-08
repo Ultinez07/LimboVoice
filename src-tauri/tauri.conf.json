@@ -13,15 +13,16 @@
     "windows": [
       {
         "title": "Limbo Voice",
-        "width": 400,
-        "height": 300,
-        "resizable": false,
+        "width": 900,
+        "height": 650,
+        "resizable": true,
         "fullscreen": false,
-        "decorations": false,
-        "transparent": true,
-        "alwaysOnTop": true,
-        "skipTaskbar": true,
-        "visible": false
+        "decorations": true,
+        "transparent": false,
+        "alwaysOnTop": false,
+        "skipTaskbar": false,
+        "visible": true,
+        "center": true
       }
     ],
     "security": {

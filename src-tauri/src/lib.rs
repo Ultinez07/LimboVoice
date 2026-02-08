@@ -57,15 +57,31 @@ async fn stop_recording(app: AppHandle, state: tauri::State<'_, AppState>) -> Re
     // Get audio buffer
     let buffer = state.audio_buffer.lock().unwrap();
     
+    if buffer.is_empty() {
+        return Err("No audio recorded".to_string());
+    }
+    
     // Save audio to temp file
     let temp_path = std::env::temp_dir().join("limbo_voice_temp.wav");
     if let Err(e) = save_audio_to_wav(&buffer, &temp_path) {
         return Err(format!("Failed to save audio: {}", e));
     }
     
-    // TODO: Integrate Whisper model here
-    // For now, returning placeholder text
-    let transcribed_text = "Whisper transcription will go here".to_string();
+    // Transcribe using OpenAI Whisper Turbo
+    let transcribed_text = match transcribe_with_whisper(&temp_path).await {
+        Ok(text) => text,
+        Err(e) => {
+            app.emit("recording-state", RecordingState {
+                is_recording: false,
+                status: format!("Error: {}", e),
+            }).map_err(|e| e.to_string())?;
+            return Err(e);
+        }
+    };
+    
+    if transcribed_text.is_empty() {
+        return Err("No speech detected".to_string());
+    }
     
     // Simulate typing the text
     type_text(&transcribed_text)?;
@@ -74,6 +90,9 @@ async fn stop_recording(app: AppHandle, state: tauri::State<'_, AppState>) -> Re
         is_recording: false,
         status: "Complete!".to_string(),
     }).map_err(|e| e.to_string())?;
+    
+    // Clean up temp file
+    let _ = std::fs::remove_file(&temp_path);
     
     Ok(transcribed_text)
 }
@@ -137,6 +156,50 @@ fn save_audio_to_wav(buffer: &[f32], path: &std::path::Path) -> Result<(), Box<d
     writer.finalize()?;
     
     Ok(())
+}
+
+// Transcribe audio using OpenAI Whisper Turbo API
+async fn transcribe_with_whisper(audio_path: &std::path::Path) -> Result<String, String> {
+    use reqwest::multipart;
+    
+    // Get API key from environment variable
+    let api_key = std::env::var("OPENAI_API_KEY")
+        .map_err(|_| "OPENAI_API_KEY not set. Please add it to your environment variables.".to_string())?;
+    
+    // Read audio file
+    let audio_data = std::fs::read(audio_path)
+        .map_err(|e| format!("Failed to read audio file: {}", e))?;
+    
+    // Create multipart form
+    let file_part = multipart::Part::bytes(audio_data)
+        .file_name("audio.wav")
+        .mime_str("audio/wav")
+        .map_err(|e| format!("Failed to create file part: {}", e))?;
+    
+    let form = multipart::Form::new()
+        .part("file", file_part)
+        .text("model", "whisper-1")  // Using Whisper Turbo
+        .text("response_format", "text");
+    
+    // Send request to OpenAI
+    let client = reqwest::Client::new();
+    let response = client
+        .post("https://api.openai.com/v1/audio/transcriptions")
+        .header("Authorization", format!("Bearer {}", api_key))
+        .multipart(form)
+        .send()
+        .await
+        .map_err(|e| format!("API request failed: {}", e))?;
+    
+    if !response.status().is_success() {
+        let error_text = response.text().await.unwrap_or_default();
+        return Err(format!("API error: {}", error_text));
+    }
+    
+    let transcribed_text = response.text().await
+        .map_err(|e| format!("Failed to read response: {}", e))?;
+    
+    Ok(transcribed_text.trim().to_string())
 }
 
 // Type text using enigo

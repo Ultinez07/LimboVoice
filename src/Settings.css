@@ -1,0 +1,232 @@
+.settings {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.settings-header {
+    margin-bottom: 40px;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #00ff9f;
+    text-decoration: none;
+    border: 1px solid rgba(0, 255, 159, 0.3);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background: rgba(0, 255, 159, 0.1);
+    border-color: #00ff9f;
+}
+
+.settings-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #ffffff;
+}
+
+.settings-section {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 25px;
+}
+
+.settings-section h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.3rem;
+    color: #ffffff;
+}
+
+.section-description {
+    margin: 0 0 25px 0;
+    color: #a0a0a0;
+    font-size: 0.95rem;
+}
+
+.hotkey-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.current-hotkey {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.current-hotkey label {
+    font-weight: 600;
+    color: #c0c0c0;
+}
+
+.hotkey-display {
+    padding: 12px 24px;
+    background: rgba(0, 255, 159, 0.1);
+    border: 2px solid #00ff9f;
+    border-radius: 8px;
+    color: #00ff9f;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.record-hotkey-btn {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #00ff9f 0%, #00b8ff 100%);
+    color: #000000;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.record-hotkey-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 255, 159, 0.3);
+}
+
+.record-hotkey-btn.recording {
+    background: #ff3366;
+    animation: recordPulse 1s ease-in-out infinite;
+}
+
+@keyframes recordPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.hotkey-suggestions {
+    margin-top: 10px;
+}
+
+.hotkey-suggestions p {
+    margin: 0 0 10px 0;
+    color: #a0a0a0;
+    font-size: 0.9rem;
+}
+
+.suggestion-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.chip {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    color: #c0c0c0;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.chip:hover {
+    background: rgba(0, 255, 159, 0.1);
+    border-color: #00ff9f;
+    color: #00ff9f;
+}
+
+.setting-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.setting-row label {
+    font-weight: 500;
+    color: #c0c0c0;
+    min-width: 120px;
+}
+
+.select-input {
+    flex: 1;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.select-input:focus {
+    outline: none;
+    border-color: #00ff9f;
+}
+
+.test-button {
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.test-button:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #00ff9f;
+}
+
+.checkbox-row {
+    gap: 10px;
+}
+
+.checkbox-row input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.checkbox-row label {
+    cursor: pointer;
+    min-width: auto;
+}
+
+.settings-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 0;
+}
+
+.save-button {
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #00ff9f 0%, #00b8ff 100%);
+    color: #000000;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 255, 159, 0.3);
+}
