@@ -167,6 +167,31 @@ pub fn run() {
         .manage(app_state)
         .invoke_handler(tauri::generate_handler![start_recording, stop_recording])
         .setup(|app| {
+            // Create system tray icon
+            use tauri::menu::{Menu, MenuItemBuilder};
+            use tauri::tray::{TrayIconBuilder, TrayIconEvent};
+            
+            let quit = MenuItemBuilder::with_id("quit", "Quit Limbo Voice").build(app)?;
+            let menu = Menu::with_items(app, &[&quit])?;
+            
+            let _tray = TrayIconBuilder::new()
+                .icon(app.default_window_icon().unwrap().clone())
+                .menu(&menu)
+                .menu_on_left_click(false)
+                .on_menu_event(|app, event| {
+                    if event.id == "quit" {
+                        app.exit(0);
+                    }
+                })
+                .on_tray_icon_event(|_tray, event| {
+                    if let TrayIconEvent::Click { button, .. } = event {
+                        if button == tauri::tray::MouseButton::Left {
+                            println!("Limbo Voice is running. Press Alt+Space to dictate!");
+                        }
+                    }
+                })
+                .build(app)?;
+            
             // Register global shortcut Alt+Space
             let handle = app.handle().clone();
             let shortcut = Shortcut::new(Some(tauri_plugin_global_shortcut::Modifiers::ALT), tauri_plugin_global_shortcut::Code::Space);

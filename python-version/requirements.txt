@@ -1,0 +1,4 @@
+PyAudio==0.2.14
+keyboard==0.13.5
+pynput==1.7.6
+SpeechRecognition==3.10.1
