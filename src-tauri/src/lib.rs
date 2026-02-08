@@ -34,8 +34,8 @@ async fn start_recording(app: AppHandle, state: tauri::State<'_, AppState>) -> R
     let recording = state.recording.clone();
     let app_clone = app.clone();
     
-    tokio::spawn(async move {
-        if let Err(e) = capture_audio(audio_buffer, recording, app_clone).await {
+    std::thread::spawn(move || {
+        if let Err(e) = capture_audio(audio_buffer, recording, app_clone) {
             eprintln!("Audio capture error: {}", e);
         }
     });
@@ -79,7 +79,7 @@ async fn stop_recording(app: AppHandle, state: tauri::State<'_, AppState>) -> Re
 }
 
 // Capture audio from microphone
-async fn capture_audio(
+fn capture_audio(
     buffer: Arc<Mutex<Vec<f32>>>,
     is_recording: Arc<Mutex<bool>>,
     _app: AppHandle,
@@ -115,7 +115,7 @@ async fn capture_audio(
     
     // Keep stream alive while recording
     while *is_recording.lock().unwrap() {
-        tokio::time::sleep(tokio::time::Duration::from_millis(100)).await;
+        std::thread::sleep(std::time::Duration::from_millis(100));
     }
     
     Ok(())
