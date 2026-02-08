@@ -1,0 +1,101 @@
+LIMBO VOICE - END USER LICENSE AGREEMENT
+=========================================
+
+Last Updated: February 8, 2026
+
+By installing, copying, or using Limbo Voice ("the Software"), you agree to be bound by the terms of this agreement.
+
+1. GRANT OF LICENSE
+-------------------
+Limbo Voice is FREE software. You are granted a non-exclusive, worldwide license to:
+   - Install and use the Software on unlimited devices
+   - Use for personal, educational, or commercial purposes
+   - Share the installer with others
+
+2. PRIVACY & DATA PROTECTION
+-----------------------------
+Your privacy is our priority:
+   ✓ 100% LOCAL PROCESSING - All voice transcription happens on your device
+   ✓ ZERO DATA COLLECTION - We do NOT collect, store, or transmit your recordings
+   ✓ NO ANALYTICS - No tracking, no telemetry, no phone-home features
+   ✓ NO CLOUD REQUIRED - Works completely offline
+   ✓ YOUR DATA STAYS YOURS - Voice recordings are processed in real-time and discarded
+
+3. REQUIRED PERMISSIONS
+-----------------------
+Limbo Voice requires the following system permissions to function:
+
+   • MICROPHONE ACCESS
+     Used only when you press Alt+Space to start recording.
+     The app does NOT listen or record in the background.
+
+   • KEYBOARD SIMULATION
+     Required to type transcribed text into your active application.
+     This enables universal compatibility across all Windows apps.
+
+   • GLOBAL HOTKEY (Alt+Space)
+     Allows the app to respond to your hotkey from any application.
+
+4. NO WARRANTY
+--------------
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+PURPOSE, AND NONINFRINGEMENT.
+
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY 
+ARISING FROM THE USE OR INABILITY TO USE THE SOFTWARE.
+
+5. USAGE RESTRICTIONS
+---------------------
+You may NOT:
+   ✗ Reverse-engineer the bundled AI models
+   ✗ Use the software for illegal activities
+   ✗ Remove copyright notices or attributions
+
+6. FREE FOREVER
+---------------
+Limbo Voice will always be free. There are no:
+   • Subscription fees
+   • In-app purchases
+   • Premium tiers
+   • Hidden costs
+
+7. UPDATES & SUPPORT
+--------------------
+   • Software updates are optional and free
+   • Community support available via GitHub
+   • No forced updates or telemetry
+
+8. OPEN SOURCE COMPONENTS
+-------------------------
+Limbo Voice uses the following open-source technologies:
+   • Tauri Framework (MIT/Apache-2.0)
+   • React (MIT)
+   • Whisper AI Model (MIT)
+   • Rust Programming Language (MIT/Apache-2.0)
+
+Full attribution available at: github.com/limbo-voice/attributions
+
+9. TERMINATION
+--------------
+This license is effective until terminated. You may terminate it by uninstalling the 
+Software. Your rights automatically terminate if you fail to comply with these terms.
+
+10. GOVERNING LAW
+-----------------
+This agreement shall be governed by international copyright law and applicable local 
+laws where you reside.
+
+---
+
+BY CLICKING "I ACCEPT" OR INSTALLING THE SOFTWARE, YOU ACKNOWLEDGE THAT YOU HAVE READ 
+THIS AGREEMENT, UNDERSTAND IT, AND AGREE TO BE BOUND BY ITS TERMS AND CONDITIONS.
+
+If you do not agree to these terms, click "Cancel" and do not install the Software.
+
+---
+
+Copyright © 2026 Limbo Voice Contributors
+Licensed under MIT License
+
+For questions or concerns: github.com/limbo-voice/support

@@ -1,0 +1,24 @@
+.container {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+button {
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: var(--bg-glass);
+  color: var(--text-main);
+  border: var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+}
+
+button:hover {
+  background: var(--bg-glass-bright);
+}
