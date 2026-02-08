@@ -12,5 +12,13 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   </React.StrictMode>,
 );
 
-// Show window after initial render
-getCurrentWindow().show();
+// Hide loading screen and show window after React loads
+setTimeout(() => {
+  const loadingScreen = document.getElementById('loading-screen');
+  if (loadingScreen) {
+    loadingScreen.style.opacity = '0';
+    loadingScreen.style.transition = 'opacity 0.3s ease';
+    setTimeout(() => loadingScreen.remove(), 300);
+  }
+  getCurrentWindow().show();
+}, 100);
