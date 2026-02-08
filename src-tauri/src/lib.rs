@@ -1,5 +1,5 @@
 use std::sync::{Arc, Mutex};
-use tauri::{AppHandle, Manager};
+use tauri::{AppHandle, Emitter, Manager};
 use tauri_plugin_global_shortcut::{GlobalShortcutExt, Shortcut};
 
 #[derive(Clone, serde::Serialize)]
@@ -82,7 +82,7 @@ async fn stop_recording(app: AppHandle, state: tauri::State<'_, AppState>) -> Re
 async fn capture_audio(
     buffer: Arc<Mutex<Vec<f32>>>,
     is_recording: Arc<Mutex<bool>>,
-    app: AppHandle,
+    _app: AppHandle,
 ) -> Result<(), Box<dyn std::error::Error>> {
     use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
     
