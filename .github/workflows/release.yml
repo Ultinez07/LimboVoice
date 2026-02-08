@@ -35,11 +35,11 @@ jobs:
       - name: install frontend dependencies
         run: npm install
 
-      - uses: tauri-apps/tauri-action@v0
+      - uses: tauri-apps/tauri-action@v0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: app-v__VERSION__ # tauri-action replaces this with actual version
+          tagName: app-v__VERSION__
           releaseName: "Limbo Voice v__VERSION__"
           releaseBody: "Universal Voice Dictation for Windows."
           releaseDraft: true
